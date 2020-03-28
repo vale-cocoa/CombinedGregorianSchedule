@@ -1,0 +1,88 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "ClampedOptionSet",
+        "repositoryURL": "https://github.com/vale-cocoa/ClampedOptionSet.git",
+        "state": {
+          "branch": null,
+          "revision": "4c4a092e3bdc9e303780c5aee047ff6ee4da3a85",
+          "version": "1.0.1"
+        }
+      },
+      {
+        "package": "GregorianCommonTimetable",
+        "repositoryURL": "https://github.com/vale-cocoa/GregorianCommonTimetable.git",
+        "state": {
+          "branch": null,
+          "revision": "ddaef076ce148b3a6d154c8991cec01ba6b8ea7a",
+          "version": "2.1.1"
+        }
+      },
+      {
+        "package": "Schedule",
+        "repositoryURL": "https://github.com/vale-cocoa/Schedule.git",
+        "state": {
+          "branch": null,
+          "revision": "930787b32ad15160b7f03c87ed68770c9e2136c4",
+          "version": "1.0.8"
+        }
+      },
+      {
+        "package": "SlicedSchedule",
+        "repositoryURL": "https://github.com/vale-cocoa/SlicedSchedule.git",
+        "state": {
+          "branch": null,
+          "revision": "36cb093fdb9c1d9867d7e97ef77feeeb2d629062",
+          "version": "1.0.1"
+        }
+      },
+      {
+        "package": "TimeIntervalTimetable",
+        "repositoryURL": "https://github.com/vale-cocoa/TimeIntervalTimetable.git",
+        "state": {
+          "branch": null,
+          "revision": "c3f0f638dcb6804d541bc318b781e6fa1b88bd92",
+          "version": "1.0.1"
+        }
+      },
+      {
+        "package": "VDLBinaryExpressionsAPI",
+        "repositoryURL": "https://github.com/vale-cocoa/VDLBinaryExpressionsAPI.git",
+        "state": {
+          "branch": null,
+          "revision": "95d4a6a9357c875ad914e441102644dd5f4a37d9",
+          "version": "1.4.1"
+        }
+      },
+      {
+        "package": "VDLCalendarUtilities",
+        "repositoryURL": "https://github.com/vale-cocoa/VDLCalendarUtilities.git",
+        "state": {
+          "branch": null,
+          "revision": "51c137562805bb5b619834080993c9292e00bce0",
+          "version": "2.2.0"
+        }
+      },
+      {
+        "package": "VDLGCDHelpers",
+        "repositoryURL": "https://github.com/vale-cocoa/VDLGCDHelpers.git",
+        "state": {
+          "branch": null,
+          "revision": "edf9c4aa043f5c9c49eb4151d5a9bd098f46591a",
+          "version": "1.0.2"
+        }
+      },
+      {
+        "package": "WebAPICodingOptions",
+        "repositoryURL": "https://github.com/vale-cocoa/WebAPICodingOptions.git",
+        "state": {
+          "branch": null,
+          "revision": "708e8745540c567a9e3904dbc687d6b567739b47",
+          "version": "1.2.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
