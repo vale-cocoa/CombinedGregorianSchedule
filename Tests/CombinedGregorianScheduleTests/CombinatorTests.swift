@@ -15,6 +15,8 @@ final class CombinatorTests: XCTestCase
 {
     let refDate = Date(timeIntervalSinceReferenceDate: 0)
     
+    // MARK: - Tests
+    // MARK: - refine operator on generator tests
     func test_refineOperator_whenBothGeneratorsAreEmpty_returnsEmptyGenerator()
     {
         // given
@@ -138,9 +140,57 @@ final class CombinatorTests: XCTestCase
                 let result = lhs >>> rhs
                 
                 // then
-                XCTAssertFalse(isEmptyGenerator(result), "weekDay: \(weekday) - hour: \(hour)")
+                XCTAssertFalse(isEmptyGenerator(result))
             }
         }
+    }
+    
+    // MARK: - tests on generator returned from refine operator
+    func test_refinedGenerator_on_whenLhsReturnsNil_returnsNil()
+    {
+        // given
+        let lhs = GregorianCommonTimetable(GregorianMonths.january).generator
+        let rhs = GregorianCommonTimetable(GregorianDays.first).generator
+        let sut = lhs >>> rhs
+        
+        // when
+        let date = Calendar.gregorianCalendar.date(bySetting: .month, value: 2, of: refDate)!
+        
+        // then
+        XCTAssertNil(lhs(date, .on))
+        XCTAssertNil(sut(date, .on))
+    }
+    
+    func test_refinedOperator_on_whenLhsReturnsElementRhsReturnsNil_returnsNil()
+    {
+        // given
+        let lhs = GregorianCommonTimetable(GregorianMonths.january).generator
+        let rhs = GregorianCommonTimetable(GregorianDays.first).generator
+        let sut = lhs >>> rhs
+        
+        // when
+        let date = Calendar.gregorianCalendar.date(bySetting: .day, value: 2, of: refDate)!
+        
+        // then
+        XCTAssertNil(rhs(date, .on))
+        XCTAssertNil(sut(date, .on))
+    }
+    
+    func test_refinedOperator_on_whenLhsReturnsElementRhsReturnsElementFullyContainedInLhsElement_returnsRhsElement()
+    {
+        // given
+        let lhs = GregorianCommonTimetable(GregorianMonths.january).generator
+        let rhs = GregorianCommonTimetable(GregorianDays.first).generator
+        let sut = lhs >>> rhs
+        
+        // when
+        let expectectedResult = rhs(refDate, .on)
+        let result = sut(refDate, .on)
+        
+        // then
+        XCTAssertNotNil(lhs(refDate, .on))
+        XCTAssertNotNil(expectectedResult)
+        XCTAssertEqual(result, expectectedResult)
     }
     
     static var allTests = [
@@ -154,6 +204,8 @@ final class CombinatorTests: XCTestCase
         ("test_refineOperator_combiningForGettingFeb29THGenerator_returnsNotEmptyGenerator", test_refineOperator_combiningForGettingFeb29THGenerator_returnsNotEmptyGenerator),
         ("test_refineOperator_whenLhsIsFeb29THGeneratorRhsIsWeekdayGenerator_returnsNotEmptyGenerator", test_refineOperator_whenLhsIsFeb29THGeneratorRhsIsWeekdayGenerator_returnsNotEmptyGenerator),
         ("test_refineOperator_whenLhsIsFeb29THWeekdayGeneratorRhsIsHoursGenerator_returnsNotEmptyGenerator", test_refineOperator_whenLhsIsFeb29THWeekdayGeneratorRhsIsHoursGenerator_returnsNotEmptyGenerator),
-        
+        ("test_refinedGenerator_on_whenLhsReturnsNil_returnsNil", test_refinedGenerator_on_whenLhsReturnsNil_returnsNil),
+        ("test_refinedOperator_on_whenLhsReturnsElementRhsReturnsNil_returnsNil", test_refinedOperator_on_whenLhsReturnsElementRhsReturnsNil_returnsNil),
+        ("test_refinedOperator_on_whenLhsReturnsElementRhsReturnsElementFullyContainedInLhsElement_returnsRhsElement", test_refinedOperator_on_whenLhsReturnsElementRhsReturnsElementFullyContainedInLhsElement_returnsRhsElement)
     ]
 }
