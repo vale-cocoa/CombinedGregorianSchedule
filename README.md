@@ -1,4 +1,4 @@
-# CombinedSchedule
+# CombinedGregorianSchedule
 
-A concrete `Schedule` type consisting of the composition of two or more other `Schedule`.
+A concrete `Schedule` type consisting of the composition of two or more  `GregorianCommonTimetable` instances.
 

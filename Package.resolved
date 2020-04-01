@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/vale-cocoa/GregorianCommonTimetable.git",
         "state": {
           "branch": null,
-          "revision": "ddaef076ce148b3a6d154c8991cec01ba6b8ea7a",
-          "version": "2.1.1"
+          "revision": "16b406b581a737c01d2355d8da08475988678d38",
+          "version": "2.1.2"
         }
       },
       {
@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/vale-cocoa/Schedule.git",
         "state": {
           "branch": null,
-          "revision": "930787b32ad15160b7f03c87ed68770c9e2136c4",
-          "version": "1.0.8"
+          "revision": "9b61868f7ea75bb70b93bfd1bbef02531386c254",
+          "version": "1.2.0"
         }
       },
       {

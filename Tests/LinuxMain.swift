@@ -1,7 +1,7 @@
 import XCTest
 
-import CombinedScheduleTests
+import CombinedGregorianScheduleTests
 
 var tests = [XCTestCaseEntry]()
-tests += CombinedScheduleTests.allTests()
+tests += CombinedGregorianSchedule.allTests()
 XCTMain(tests)
