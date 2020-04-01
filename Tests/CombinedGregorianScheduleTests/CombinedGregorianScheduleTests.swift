@@ -38,10 +38,52 @@ final class CombinedGregorianScheduleTests: XCTestCase {
         XCTAssertNoThrow(try CombinedGregorianSchedule(tokens: tokens))
     }
     
+    func test_initRefining_setsTokensAsValidPostixRepresentation()
+    {
+        // given
+        let lhs = GregorianCommonTimetable(GregorianMonths.january)
+        let rhs = GregorianCommonTimetable(GregorianDays.first)
+        
+        // when
+        let result = CombinedGregorianSchedule(refining: lhs, by: rhs).tokens
+        
+        // then
+        XCTAssertNotNil(result.validPostfix())
+    }
+    
+    func test_refined_whenRhsIsGregorianCommonTimetable_returnsCombinedGregorianSchedule()
+    {
+        // given
+        let sut = CombinedGregorianSchedule(refining: GregorianCommonTimetable(GregorianMonths.january), by: GregorianCommonTimetable(GregorianDays.first))
+        let rhs = GregorianCommonTimetable(GregorianHoursOfDay.am12)
+        
+        // when
+        let result = sut.refined(by: rhs)
+        
+        // then
+        XCTAssertNotNil(result.tokens.validPostfix())
+    }
+    
+    func test_refined_whenRhsIsCombinedGregorianTimetable_returnsCombinedGregorianSchedule()
+    {
+        // given
+        let sut = CombinedGregorianSchedule(refining: GregorianCommonTimetable(GregorianMonths.january), by: GregorianCommonTimetable(GregorianDays.first))
+        let rhs = CombinedGregorianSchedule(refining: GregorianCommonTimetable(GregorianWeekdays.friday), by: GregorianCommonTimetable(GregorianHoursOfDay.am12))
+        
+        // when
+        let result = sut.refined(by: rhs)
+        
+        // then
+        XCTAssertNotNil(result.tokens.validPostfix())
+    }
+    
     static var allTests = [
         ("test_init_whenEvaluatedOnTokensThrows_throws", test_init_whenEvaluatedOnTokensThrows_throws),
         ("test_init_whenTokensIsEmpty_doesntThrow",  test_init_whenTokensIsEmpty_doesntThrow),
     ("test_init_whenEvaluatedOnNotEmptyTokensDoesntThrow_doesntThrow", test_init_whenEvaluatedOnNotEmptyTokensDoesntThrow_doesntThrow),
+    ("test_initRefining_setTokensAsValidPostixRepresentation", test_initRefining_setsTokensAsValidPostixRepresentation),
+    ("test_refined_whenRhsIsGregorianCommonTimetable_returnsCombinedGregorianSchedule", test_refined_whenRhsIsGregorianCommonTimetable_returnsCombinedGregorianSchedule),
+    ("test_refined_whenRhsIsCombinedGregorianTimetable_returnsCombinedGregorianSchedule", test_refined_whenRhsIsCombinedGregorianTimetable_returnsCombinedGregorianSchedule),
     
     ]
 }

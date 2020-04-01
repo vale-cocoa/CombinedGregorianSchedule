@@ -101,7 +101,7 @@ public struct CombinedGregorianSchedule {
     ///  refined by the given one.
     public func refined(by rhs: CombinedGregorianSchedule) -> CombinedGregorianSchedule
     {
-        let tokens = self.tokens + rhs.tokens
+        let tokens = try! self.tokens.postfix(by: .refine, with: rhs.tokens)
         
         return try! Self(tokens: tokens)
     }

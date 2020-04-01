@@ -52,7 +52,6 @@ extension Combinator: BinaryOperatorProtocol {
     
 }
 
-
 // MARK: Codable conformance
 extension Combinator: Codable {
     enum CodingKeys: String, CodingKey {
@@ -156,7 +155,6 @@ func >>>(lhs: @escaping Schedule.Generator, rhs: @escaping Schedule.Generator) -
         lhsElement = lhs(lhsElementStart, .firstAfter)
         lhsIterations += 1
     }
-    
     
     guard
         lhsFullyContainsAtLeastOneRhsElement == true
