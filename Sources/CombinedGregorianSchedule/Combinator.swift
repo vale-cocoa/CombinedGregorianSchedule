@@ -129,6 +129,16 @@ func >>>(lhs: @escaping Schedule.Generator, rhs: @escaping Schedule.Generator) -
         maxLhsIterations = 12
     }
     
+    let durationOfRhsElement = rhs(.distantPast, .firstAfter)?.duration ?? rhs(.distantFuture, .firstBefore)!.duration
+    let maxRhsIterations: Int!
+    if durationOfRhsElement <= 3600 {
+        maxRhsIterations = 24
+    } else if durationOfRhsElement <= (3600*24) {
+        maxRhsIterations = 31
+    } else {
+        maxRhsIterations = 12
+    }
+    
     let refDate = Date(timeIntervalSinceReferenceDate: 0)
     var lhsIterations = 0
     var lhsFullyContainsAtLeastOneRhsElement = false
@@ -138,7 +148,9 @@ func >>>(lhs: @escaping Schedule.Generator, rhs: @escaping Schedule.Generator) -
         let lhsElementStart = lhsElement?.start
     {
         var rhsElement: DateInterval? = rhs(lhsElementStart, .on) ?? rhs(lhsElementStart, .firstAfter)
+        var rhsIterations = 0
         while
+            rhsIterations <= maxRhsIterations,
             let  rhsCandidate = rhsElement,
             rhsCandidate.start <= lhsElement!.end
         {
@@ -150,6 +162,7 @@ func >>>(lhs: @escaping Schedule.Generator, rhs: @escaping Schedule.Generator) -
                 break MainLoop
             }
             rhsElement = rhs(rhsCandidate.start, .firstAfter)
+            rhsIterations += 1
         }
         
         lhsElement = lhs(lhsElementStart, .firstAfter)
@@ -177,54 +190,66 @@ func >>>(lhs: @escaping Schedule.Generator, rhs: @escaping Schedule.Generator) -
             return rhsDateInterval
        
         case .firstAfter:
-            var newLhsResult: DateInterval? = lhsDateInterval
-            var newRhsResult: DateInterval? = rhs(lhsDateInterval.start, .on) ?? rhs(lhsDateInterval.start, .firstAfter)
+            var lhsCandidate: DateInterval? = lhs(date, .on) ?? lhsDateInterval
+            var rhsCandidate: DateInterval? =  rhs(date, .firstAfter)
             var lhsIterations = 0
             while
                 lhsIterations <= maxLhsIterations,
-                let lhsCandidate = newLhsResult
+                let lhsResult = lhsCandidate
             {
+                var rhsIterations = 0
                 while
-                    let rhsCandidate = newRhsResult,
-                    rhsCandidate.start <= lhsCandidate.end
+                    rhsIterations <= maxRhsIterations,
+                    let rhsResult = rhsCandidate,
+                    rhsResult.start <= lhsResult.end
                 {
                     if
-                        let intersection = lhsCandidate.intersection(with: rhsCandidate),
-                        intersection.duration == rhsCandidate.duration
+                        let intersection = lhsResult.intersection(with: rhsResult),
+                        intersection.duration == rhsResult.duration
                     {
-                        return intersection
+                        return rhsResult
                     }
-                    newRhsResult = rhs(rhsCandidate.start, .firstAfter)
+                    rhsCandidate = rhs(rhsResult.start, .firstAfter)
+                    rhsIterations += 1
                 }
-                newLhsResult = lhs(lhsCandidate.start, .firstAfter)
+                lhsCandidate = lhs(lhsResult.start, .firstAfter)
                 lhsIterations += 1
+                if lhsCandidate != nil {
+                    rhsCandidate = rhs(lhsCandidate!.start, .on) ?? rhs(lhsCandidate!.start, .firstAfter)
+                }
             }
             
             return nil
         
         case .firstBefore:
-            var newLhsResult: DateInterval? = lhsDateInterval
-            var newRhsResult: DateInterval? = rhs(lhsDateInterval.end, .on) ?? rhs(lhsDateInterval.end, .firstBefore)
+            var lhsCandidate: DateInterval? = lhs(date, .on) ?? lhsDateInterval
+            var rhsCandidate: DateInterval? = rhs(date, .firstBefore)
             var lhsIterations = 0
             while
                 lhsIterations <= maxLhsIterations,
-                let lhsCandidate = newLhsResult
+                let lhsResult = lhsCandidate
             {
+                var rhsIterations = 0
                 while
-                    let rhsCandidate = newRhsResult,
-                    rhsCandidate.start >= lhsCandidate.start
+                    rhsIterations <= maxRhsIterations,
+                    let rhsResult = rhsCandidate,
+                    rhsResult.start >= lhsResult.start
                 {
                     if
-                        let intersection = lhsCandidate.intersection(with: rhsCandidate),
-                        intersection.duration == rhsCandidate.duration
+                        let intersection = lhsResult.intersection(with: rhsResult),
+                        intersection.duration == rhsResult.duration
                     {
                         
-                        return intersection
+                        return rhsResult
                     }
-                    newRhsResult = rhs(rhsCandidate.end, .firstBefore)
+                    rhsCandidate = rhs(rhsResult.start, .firstBefore)
+                    rhsIterations += 1
                 }
-                newLhsResult = lhs(lhsCandidate.end, .firstBefore)
+                lhsCandidate = lhs(lhsResult.start, .firstBefore)
                 lhsIterations += 1
+                if lhsCandidate != nil {
+                    rhsCandidate = rhs(lhsCandidate!.end, .on) ?? rhs(lhsCandidate!.end, .firstBefore)
+                }
             }
             
             return nil
