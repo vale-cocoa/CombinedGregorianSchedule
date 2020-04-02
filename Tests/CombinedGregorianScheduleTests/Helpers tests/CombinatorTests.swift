@@ -22,6 +22,46 @@ final class CombinatorTests: XCTestCase
     }
     
     // MARK: - Tests
+    // MARK: - Codable & WebAPICodingOptions
+    func test_codable()
+    {
+        // given
+        let encoder = JSONEncoder()
+        let decoder = JSONDecoder()
+        
+        // when
+        for combinator in Combinator.allCases {
+            do {
+                let data = try encoder.encode(combinator)
+                let decoded = try decoder.decode(Combinator.self, from: data)
+                // then
+                XCTAssertEqual(decoded, combinator)
+            } catch {
+                XCTFail("Error while encoding/decoding: \(error)")
+            }
+        }
+    }
+    
+    func test_webAPI() {
+        // given
+        let encoder = JSONEncoder()
+        let decoder = JSONDecoder()
+        
+        // when
+        encoder.setWebAPI(version: .v1)
+        decoder.setWebAPI(version: .v1)
+        for combinator in Combinator.allCases {
+            do {
+                let data = try encoder.encode(combinator)
+                let decoded = try decoder.decode(Combinator.self, from: data)
+                // then
+                XCTAssertEqual(decoded, combinator)
+            } catch {
+                XCTFail("Not conforming to WEBAPICodingOptions. Error: \(error)")
+            }
+        }
+    }
+    
     // MARK: - refine operator for Generator
     func test_refineOperator_whenBothGeneratorsAreEmpty_returnsEmptyGenerator()
     {

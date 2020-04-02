@@ -52,43 +52,7 @@ extension Combinator: BinaryOperatorProtocol {
     
 }
 
-// MARK: Codable conformance
-extension Combinator: Codable {
-    enum CodingKeys: String, CodingKey {
-        case base
-    }
-    
-    enum Base: String, Codable {
-        case refine
-        
-        init(_ combinator: Combinator)
-        {
-            switch combinator {
-            case .refine:
-                self = .refine
-            }
-        }
-        
-        var combinator: Combinator {
-            switch self {
-            case .refine:
-                return .refine
-            }
-        }
-    }
-    
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(Base(self), forKey: .base)
-    }
-    
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        let base = try container.decode(Base.self, forKey: .base)
-        self = base.combinator
-    }
-    
-}
+
 
 // MARK: - Functional >>> Operator
 precedencegroup RefinePrecedence {
