@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/vale-cocoa/GregorianCommonTimetable.git",
         "state": {
           "branch": null,
-          "revision": "16b406b581a737c01d2355d8da08475988678d38",
-          "version": "2.1.2"
+          "revision": "91e6ebcb1b0a3d982c934df1c3cc77e8fad4bb49",
+          "version": "2.2.0"
         }
       },
       {
@@ -26,24 +26,6 @@
           "branch": null,
           "revision": "9b61868f7ea75bb70b93bfd1bbef02531386c254",
           "version": "1.2.0"
-        }
-      },
-      {
-        "package": "SlicedSchedule",
-        "repositoryURL": "https://github.com/vale-cocoa/SlicedSchedule.git",
-        "state": {
-          "branch": null,
-          "revision": "36cb093fdb9c1d9867d7e97ef77feeeb2d629062",
-          "version": "1.0.1"
-        }
-      },
-      {
-        "package": "TimeIntervalTimetable",
-        "repositoryURL": "https://github.com/vale-cocoa/TimeIntervalTimetable.git",
-        "state": {
-          "branch": null,
-          "revision": "c3f0f638dcb6804d541bc318b781e6fa1b88bd92",
-          "version": "1.0.1"
         }
       },
       {

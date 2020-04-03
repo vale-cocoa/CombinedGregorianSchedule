@@ -7,11 +7,6 @@
 //
 
 import Foundation
-import Schedule
-import GregorianCommonTimetable
-import VDLBinaryExpressionsAPI
-import VDLGCDHelpers
-import VDLCalendarUtilities
 import WebAPICodingOptions
 
 extension Combinator: Codable {

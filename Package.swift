@@ -17,9 +17,7 @@ let package = Package(
         // .package(url: /* package url */, from: "1.0.0"),
         .package(url: "https://github.com/vale-cocoa/Schedule.git", from: "1.2.0"),
         .package(url: "https://github.com/vale-cocoa/VDLGCDHelpers.git", from: "1.0.2"),
-        .package(url: "https://github.com/vale-cocoa/TimeIntervalTimetable.git", from: "1.0.1"),
-        .package(url: "https://github.com/vale-cocoa/SlicedSchedule.git", from: "1.0.1"),
-        .package(url: "https://github.com/vale-cocoa/GregorianCommonTimetable.git", from: "2.1.2"),
+        .package(url: "https://github.com/vale-cocoa/GregorianCommonTimetable.git", from: "2.2.0"),
         .package(url: "https://github.com/vale-cocoa/VDLBinaryExpressionsAPI.git", from: "1.4.1"),
     ],
     targets: [
@@ -27,7 +25,7 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
             name: "CombinedGregorianSchedule",
-            dependencies: ["Schedule", "VDLGCDHelpers", "TimeIntervalTimetable", "SlicedSchedule", "GregorianCommonTimetable", "VDLBinaryExpressionsAPI"]),
+            dependencies: ["Schedule", "VDLGCDHelpers", "GregorianCommonTimetable", "VDLBinaryExpressionsAPI"]),
         .testTarget(
             name: "CombinedGregorianScheduleTests",
             dependencies: ["CombinedGregorianSchedule"]),

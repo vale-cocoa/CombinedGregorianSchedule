@@ -112,17 +112,17 @@ public struct CombinedGregorianSchedule {
 extension CombinedGregorianSchedule: Schedule {
     public var isEmpty: Bool {
         
-        return self.evaluated.isEmpty
+        return evaluated.isEmpty
     }
     
     public func contains(_ date: Date) -> Bool {
         
-        return self.evaluated.generators.generator(date, .on) != nil
+        return evaluated.generators.generator(date, .on) != nil
     }
     
     public func schedule(matching date: Date, direction: CalendarCalculationMatchingDateDirection) -> Element? {
         
-        return self.evaluated.generators.generator(date, direction)
+        return evaluated.generators.generator(date, direction)
     }
     
     public func schedule(in dateInterval: DateInterval, queue: DispatchQueue?, then completion: @escaping (Result<[Element], Error>) -> Void) {
@@ -131,24 +131,3 @@ extension CombinedGregorianSchedule: Schedule {
     }
     
 }
-
-// MARK: - Codable conformance
-extension CombinedGregorianSchedule: Codable {
-    enum CodingKeys: String, CodingKey {
-        case tokens
-    }
-    
-    public func encode(to encoder: Encoder) throws
-    {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(tokens, forKey: .tokens)
-    }
-    
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        let tokens = try container.decode(Array<Token>.self, forKey: .tokens)
-        self = try Self(tokens: tokens)
-    }
-    
-}
-
