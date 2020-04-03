@@ -17,7 +17,7 @@ let package = Package(
         // .package(url: /* package url */, from: "1.0.0"),
         .package(url: "https://github.com/vale-cocoa/Schedule.git", from: "1.2.0"),
         .package(url: "https://github.com/vale-cocoa/VDLGCDHelpers.git", from: "1.0.2"),
-        .package(url: "https://github.com/vale-cocoa/GregorianCommonTimetable.git", from: "2.2.0"),
+        .package(url: "https://github.com/vale-cocoa/GregorianCommonTimetable.git", from: "2.2.1"),
         .package(url: "https://github.com/vale-cocoa/VDLBinaryExpressionsAPI.git", from: "1.4.1"),
     ],
     targets: [
